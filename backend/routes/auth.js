@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
+const auth = require("../middleware/auth");
 
 router.get("/login/success", (req, res) => {
   if (req.user) {
@@ -10,6 +11,10 @@ router.get("/login/success", (req, res) => {
       //   cookies: req.cookies
     });
   }
+});
+
+router.get("/protected", auth, (req, res, nex) => {
+  res.json({ user: req.user })
 });
 
 router.get("/login/failed", (req, res) => {
