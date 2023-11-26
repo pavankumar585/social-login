@@ -3,14 +3,17 @@ const passport = require("passport");
 const auth = require("../middleware/auth");
 
 router.get("/login/success", (req, res) => {
+  console.log("hai");
   if (req.user) {
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "successfull",
       user: req.user,
       //   cookies: req.cookies
     });
   }
+
+  res.status(404).json({ status: false, message: "User not found." })
 });
 
 router.get("/protected", auth, (req, res, nex) => {
